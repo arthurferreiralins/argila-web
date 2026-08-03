@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Argila+, ateliê de esculturas em argila de alto padrão. Arte que ganha forma."/>
+<title>Argila+ — Esculturas em Argila</title>
+<link rel="icon" type="image/png" href="assets/favicon.png"/>
+<style>
+  :root{
+    --cream:#F5ECDD;
+    --cream-2:#EEE0C7;
+    --sand:#DCC49E;
+    --ink:#2A1B12;
+    --ink-soft:#5B4634;
+    --terracotta:#AE5330;
+    --terracotta-deep:#7C3B22;
+    --gold:#8C6B3E;
+    --gold-soft:#A6824F;
+    --shadow: 30 20% 10%;
+    --radius: 2px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --cream:#20140D;
+      --cream-2:#2A1B12;
+      --sand:#4A3324;
+      --ink:#F1E2CC;
+      --ink-soft:#C7AF95;
+      --terracotta:#D77C4C;
+      --terracotta-deep:#E8935F;
+      --gold:#C7A46B;
+      --gold-soft:#DCC08C;
+    }
+  }
+  :root[data-theme="dark"]{
+    --cream:#20140D; --cream-2:#2A1B12; --sand:#4A3324; --ink:#F1E2CC;
+    --ink-soft:#C7AF95; --terracotta:#D77C4C; --terracotta-deep:#E8935F;
+    --gold:#C7A46B; --gold-soft:#DCC08C;
+  }
+  :root[data-theme="light"]{
+    --cream:#F5ECDD; --cream-2:#EEE0C7; --sand:#DCC49E; --ink:#2A1B12;
+    --ink-soft:#5B4634; --terracotta:#AE5330; --terracotta-deep:#7C3B22;
+    --gold:#8C6B3E; --gold-soft:#A6824F;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} }
+
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:Optima, Candara, 'Segoe UI', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size:17px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  .font-display{
+    font-family:'Iowan Old Style','Palatino Linotype','Book Antiqua', Georgia, ui-serif, serif;
+  }
+
+  a{color:inherit;}
+  h1,h2,h3{text-wrap:balance; margin:0; font-weight:400;}
+
+  .eyebrow{
+    font-size:.72rem;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    font-weight:600;
+    margin:0 0 1rem 0;
+  }
+
+  .wrap{max-width:1120px; margin:0 auto; padding:0 2rem;}
+  .col{max-width:62ch;}
+
+  .hairline{
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--sand) 15%, var(--sand) 85%, transparent);
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:color-mix(in srgb, var(--cream) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--sand);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:.9rem 0;
+  }
+  .brand-mini{
+    display:flex; align-items:center;
+    text-decoration:none; color:var(--ink);
+  }
+  nav.links{display:flex; gap:2rem; list-style:none; margin:0; padding:0;}
+  nav.links a{
+    text-decoration:none; font-size:.82rem; letter-spacing:.06em;
+    color:var(--ink-soft); position:relative; padding-bottom:.25rem;
+    transition:color .25s ease;
+  }
+  nav.links a::after{
+    content:""; position:absolute; left:0; right:100%; bottom:0; height:1px;
+    background:var(--terracotta); transition:right .3s ease;
+  }
+  nav.links a:hover{color:var(--ink);}
+  nav.links a:hover::after{right:0;}
+  nav.links a:focus-visible{outline:2px solid var(--terracotta); outline-offset:4px;}
+  @media (max-width:780px){ nav.links{display:none;} }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height:100svh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding:6rem 2rem 4rem;
+    position:relative;
+    background:
+      radial-gradient(ellipse 60% 45% at 50% 18%, color-mix(in srgb, var(--terracotta) 12%, transparent), transparent 70%),
+      var(--cream);
+  }
+  .hero .emblem-wrap{
+    width:min(420px, 78vw); margin:0 auto 0;
+    filter:drop-shadow(0 22px 40px hsl(var(--shadow) / .3));
+    animation:emblem-in 1.1s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .hero .emblem-wrap img{width:100%; height:auto; display:block;}
+  @keyframes emblem-in{
+    from{opacity:0; transform:translateY(14px) scale(.97);}
+    to{opacity:1; transform:translateY(0) scale(1);}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .hero .emblem-wrap{animation:none;}
+  }
+  .scroll-cue{
+    margin-top:3.4rem; width:1px; height:52px;
+    background:linear-gradient(var(--sand), transparent);
+    position:relative;
+  }
+
+  /* ---------- Sections ---------- */
+  section{padding:6.5rem 0;}
+  .section-head{
+    display:grid; grid-template-columns:1fr 1.4fr; gap:3rem;
+    margin-bottom:2.6rem;
+  }
+  .section-head h2{font-size:clamp(1.7rem,3vw,2.2rem);}
+  @media (max-width:800px){ .section-head{grid-template-columns:1fr;} }
+
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .8s ease, transform .8s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion:reduce){ .reveal{opacity:1; transform:none; transition:none;} }
+
+  /* ---------- Coleção (Em breve) ---------- */
+  .colecao{
+    background:var(--cream-2);
+    border-top:1px solid var(--sand);
+    border-bottom:1px solid var(--sand);
+  }
+  .colecao-inner{
+    text-align:center; display:flex; flex-direction:column; align-items:center;
+    max-width:640px; margin:0 auto;
+  }
+  .colecao svg.urn{width:64px; height:64px; margin-bottom:1.6rem; color:var(--gold);}
+  .colecao h2{font-size:clamp(1.6rem,3vw,2.1rem); margin-bottom:1rem;}
+  .colecao p{color:var(--ink-soft);}
+  .colecao .tag{
+    margin-top:2rem; display:inline-block; padding:.55rem 1.4rem;
+    border:1px solid var(--gold); border-radius:999px;
+    font-size:.75rem; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--gold-soft);
+  }
+
+  /* ---------- História / Sobre ---------- */
+  .story p + p{margin-top:1.1rem;}
+  .story .col{color:var(--ink-soft);}
+  .story .col strong{color:var(--ink); font-weight:600;}
+
+  .sobre{background:var(--cream-2); border-top:1px solid var(--sand); border-bottom:1px solid var(--sand);}
+
+  /* ---------- Missão / Visão / Valores ---------- */
+  .triptych{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:0;
+    border-top:1px solid var(--sand);
+  }
+  .triptych > div{
+    padding:3rem 2.4rem;
+    border-left:1px solid var(--sand);
+  }
+  .triptych > div:first-child{border-left:none;}
+  .triptych h3{
+    font-family:'Iowan Old Style','Palatino Linotype',Georgia,serif;
+    font-size:1.3rem; margin-bottom:.9rem;
+  }
+  .triptych p{color:var(--ink-soft); font-size:.97rem;}
+  @media (max-width:800px){
+    .triptych{grid-template-columns:1fr;}
+    .triptych > div{border-left:none; border-top:1px solid var(--sand); padding:2.4rem 0;}
+    .triptych > div:first-child{border-top:none;}
+  }
+
+  .valores-list{list-style:none; margin:2.4rem 0 0; padding:0; display:grid; gap:1.1rem;}
+  .valores-list li{display:flex; gap:.9rem; align-items:baseline;}
+  .valores-list .mark{color:var(--terracotta); font-family:'Iowan Old Style',Georgia,serif; font-size:1.05rem; flex:none;}
+  .valores-list .txt strong{display:block; font-weight:600; color:var(--ink); margin-bottom:.15rem;}
+  .valores-list .txt span{color:var(--ink-soft); font-size:.94rem;}
+
+  /* ---------- Contato ---------- */
+  .contato{background:var(--cream-2); border-top:1px solid var(--sand);}
+  .contato-grid{display:grid; grid-template-columns:1fr 1fr; gap:3rem;}
+  @media (max-width:800px){ .contato-grid{grid-template-columns:1fr;} }
+  .contato dl{margin:1.6rem 0 0;}
+  .contato dt{font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-soft); margin-top:1.3rem;}
+  .contato dt:first-child{margin-top:0;}
+  .contato dd{margin:.3rem 0 0; font-size:1.02rem;}
+  .social{display:flex; gap:1rem; margin-top:1.6rem;}
+  .social a{
+    width:42px; height:42px; border-radius:50%;
+    border:1px solid var(--sand);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--ink-soft); text-decoration:none;
+    transition:border-color .25s ease, color .25s ease, transform .25s ease;
+  }
+  .social a:hover{border-color:var(--terracotta); color:var(--terracotta); transform:translateY(-2px);}
+  .social svg{width:18px; height:18px;}
+
+  /* ---------- Footer ---------- */
+  footer{
+    background:var(--ink); color:var(--cream);
+    padding:3.6rem 0 2.4rem;
+  }
+  :root[data-theme="dark"] footer, @media (prefers-color-scheme:dark){}
+  footer .foot-top{
+    display:flex; justify-content:space-between; align-items:flex-start; gap:2rem; flex-wrap:wrap;
+    padding-bottom:2.4rem; border-bottom:1px solid color-mix(in srgb, var(--cream) 18%, transparent);
+  }
+
+  footer nav.foot-links{display:flex; gap:1.8rem; flex-wrap:wrap;}
+  footer nav.foot-links a{
+    text-decoration:none; color:color-mix(in srgb, var(--cream) 75%, transparent);
+    font-size:.82rem; letter-spacing:.05em;
+  }
+  footer nav.foot-links a:hover{color:var(--cream);}
+  footer .fine{
+    padding-top:1.6rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:.6rem;
+    font-size:.78rem; color:color-mix(in srgb, var(--cream) 55%, transparent);
+  }
+
+  .sr-only{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+  .logo-img{display:block; object-fit:contain;}
+  .logo-header{height:40px; width:auto; border-radius:3px;}
+  .logo-footer{height:52px; width:auto; border-radius:3px;}
+  .logo-hero{width:100%; height:auto; border-radius:6px;}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav-inner">
+    <a class="brand-mini" href="#top" aria-label="Argila+ — início">
+      <img class="logo-img logo-header" src="assets/logo-emblem.webp" alt="Argila+" width="240" height="180"/>
+    </a>
+    <nav class="links" aria-label="Navegação principal">
+      <a href="#colecao">Coleção</a>
+      <a href="#historia">História</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#missao">Missão &amp; Visão</a>
+      <a href="#valores">Valores</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="emblem-wrap">
+      <img class="logo-img logo-hero" src="assets/logo-full.webp" alt="Argila+ — Arte que ganha forma. Esculturas em Argila." width="900" height="900"/>
+    </div>
+    <h1 class="sr-only">Argila+</h1>
+    <p class="sr-only">Arte que ganha forma — Esculturas em Argila</p>
+    <div class="scroll-cue" aria-hidden="true"></div>
+  </section>
+
+  <div class="hairline"></div>
+
+  <!-- ================= COLEÇÃO — EM BREVE ================= -->
+  <section class="colecao" id="colecao">
+    <div class="wrap">
+      <div class="colecao-inner reveal">
+        <svg class="urn" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M32 8c-3 0-5 2-5 5 0 2 1 3.5 2.5 4.5C22 21 18 28 18 37c0 11 6 18 14 19 8-1 14-8 14-19 0-9-4-16-11.5-19.5C36 16.5 37 15 37 13c0-3-2-5-5-5Z"/>
+          <path d="M24 44h16" opacity=".5"/>
+        </svg>
+        <p class="eyebrow">Nossa Coleção</p>
+        <h2 class="font-display">Coleção em desenvolvimento</h2>
+        <p>Cada peça da Argila+ é esculpida à mão, uma a uma, sem pressa e sem repetição. Nossa primeira coleção está sendo cuidadosamente criada em ateliê e será apresentada em breve.</p>
+        <span class="tag">Em breve</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= HISTÓRIA ================= -->
+  <section id="historia">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Nossa História</p>
+        <h2 class="font-display">Do barro bruto à forma que permanece</h2>
+      </div>
+      <div class="story col reveal">
+        <p>A <strong>Argila+</strong> nasceu do encontro entre a matéria mais antiga do ofício humano e um olhar contemporâneo sobre o que é luxo. Antes de qualquer ferramenta, existe o barro — bruto, denso, silencioso — à espera de uma mão que reconheça nele uma forma ainda não revelada.</p>
+        <p>Fundada como um ateliê dedicado inteiramente à escultura em argila, a marca reúne artesãos formados na tradição da cerâmica escultórica e no desenho contemporâneo, unindo técnica centenária a uma linguagem visual própria de galeria internacional.</p>
+        <p>Cada peça que sai do nosso ateliê carrega o tempo de sua própria criação — não é produzida em série, não se repete, e não pretende ser rápida. É este o valor que buscamos preservar: o de uma arte que ainda é feita, literalmente, com as mãos.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="hairline"></div>
+
+  <!-- ================= SOBRE ================= -->
+  <section class="sobre" id="sobre">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Sobre Nós</p>
+        <h2 class="font-display">Um ateliê, não uma fábrica</h2>
+      </div>
+      <div class="story col reveal">
+        <p>Somos um estúdio de escultura dedicado a peças decorativas de alto padrão, pensadas para espaços que já dominam a linguagem do design — residências autorais, hotéis de charme, escritórios de arquitetura e coleções privadas.</p>
+        <p>Trabalhamos por encomenda e em pequenas séries limitadas, priorizando sempre a integridade do material sobre a velocidade de produção. Cada escultura passa pelas mãos de um único artesão do início ao fim, garantindo unidade de gesto e assinatura.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MISSÃO / VISÃO ================= -->
+  <section id="missao" style="padding-bottom:0;">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Missão &amp; Visão</p>
+        <h2 class="font-display">Para onde caminha a Argila+</h2>
+      </div>
+    </div>
+    <div class="wrap" style="padding:0;">
+      <div class="triptych reveal">
+        <div>
+          <h3>Missão</h3>
+          <p>Elevar a escultura em argila feita à mão ao mesmo patamar de desejo e reconhecimento das grandes referências internacionais de design e decoração de luxo.</p>
+        </div>
+        <div>
+          <h3>Visão</h3>
+          <p>Ser reconhecida como uma galeria-ateliê de referência em escultura contemporânea em argila, presente em projetos de arquitetura e interiores ao redor do mundo.</p>
+        </div>
+        <div>
+          <h3>Compromisso</h3>
+          <p>Manter cada peça inteiramente autoral e manual — sem atalhos industriais — como forma de honrar o tempo e o gesto que a argila exige.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="hairline" style="margin-top:0;"></div>
+
+  <!-- ================= VALORES ================= -->
+  <section id="valores">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Valores</p>
+        <h2 class="font-display">O que sustenta cada peça</h2>
+      </div>
+      <div class="col reveal" style="max-width:56ch;">
+        <ul class="valores-list">
+          <li>
+            <span class="mark">+</span>
+            <span class="txt"><strong>Autenticidade</strong><span>Nenhuma peça é reproduzida em série ou replicada digitalmente — cada gesto é único.</span></span>
+          </li>
+          <li>
+            <span class="mark">+</span>
+            <span class="txt"><strong>Excelência artesanal</strong><span>Técnica refinada ao longo de anos de prática, sem pressa para entregar.</span></span>
+          </li>
+          <li>
+            <span class="mark">+</span>
+            <span class="txt"><strong>Exclusividade</strong><span>Produção em pequenas séries e por encomenda, para quem valoriza o raro.</span></span>
+          </li>
+          <li>
+            <span class="mark">+</span>
+            <span class="txt"><strong>Respeito à matéria-prima</strong><span>A argila é tratada como protagonista, não como suporte — sua textura permanece visível.</span></span>
+          </li>
+          <li>
+            <span class="mark">+</span>
+            <span class="txt"><strong>Atemporalidade</strong><span>Formas pensadas para atravessar décadas, não tendências.</span></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTATO ================= -->
+  <section class="contato" id="contato">
+    <div class="wrap">
+      <div class="contato-grid">
+        <div class="reveal">
+          <p class="eyebrow">Contato</p>
+          <h2 class="font-display">Fale com o ateliê</h2>
+          <dl class="contato">
+            <dt>E-mail</dt>
+            <dd><a href="mailto:contato@argilamais.com">contato@argilamais.com</a></dd>
+            <dt>WhatsApp</dt>
+            <dd>+55 (11) 0000-0000</dd>
+            <dt>Atendimento</dt>
+            <dd>Ateliê privado — visitas com hora marcada</dd>
+          </dl>
+        </div>
+        <div class="reveal">
+          <p class="eyebrow">Redes Sociais</p>
+          <h2 class="font-display">Acompanhe o processo</h2>
+          <p class="col" style="color:var(--ink-soft); margin-top:1rem;">Bastidores do ateliê, estudos em barro e o desenvolvimento da primeira coleção.</p>
+          <div class="social">
+            <a href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+            </a>
+            <a href="#" aria-label="Pinterest">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M9.5 18c1-3 1.6-5.4 2-7.2.3-1.4 2.2-1.7 3-.6.6.8.3 2-.2 3.4-.5 1.5.2 2.7 1.6 2.7 2 0 3.4-2.4 3.4-5 0-2.3-1.8-4.3-4.8-4.3-3.5 0-5.6 2.4-5.6 5 0 .9.3 1.5.7 2"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <a class="brand-mini" href="#top" aria-label="Argila+ — início">
+        <img class="logo-img logo-footer" src="assets/logo-emblem-wordmark.webp" alt="Argila+" width="240" height="185"/>
+      </a>
+      <nav class="foot-links" aria-label="Navegação do rodapé">
+        <a href="#colecao">Coleção</a>
+        <a href="#historia">História</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#missao">Missão &amp; Visão</a>
+        <a href="#valores">Valores</a>
+        <a href="#contato">Contato</a>
+      </nav>
+    </div>
+    <div class="fine">
+      <span>© 2026 Argila+. Ateliê de Escultura em Argila.</span>
+      <span><a href="manual-de-marca.html" style="color:inherit;">Identidade da marca</a> · Arte que ganha forma.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var els = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:.15, rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(el){ io.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add('in'); });
+  }
+</script>
+</body>
+</html>

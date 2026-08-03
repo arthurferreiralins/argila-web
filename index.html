@@ -6,8 +6,19 @@
 <meta name="description" content="Argila+, ateliê de esculturas em argila de alto padrão. Arte que ganha forma."/>
 <meta name="theme-color" content="#2A1B12"/>
 <title>Argila+ — Esculturas em Argila</title>
+<link rel="canonical" href="https://argila-web.vercel.app/"/>
 <link rel="icon" type="image/png" href="assets/favicon.png"/>
 <link rel="apple-touch-icon" href="assets/favicon.png"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Argila+"/>
+<meta property="og:url" content="https://argila-web.vercel.app/"/>
+<meta property="og:title" content="Argila+ — Esculturas em Argila"/>
+<meta property="og:description" content="Ateliê de esculturas em argila de alto padrão, feitas inteiramente à mão. Arte que ganha forma."/>
+<meta property="og:image" content="https://argila-web.vercel.app/assets/logo-full.webp"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Argila+ — Esculturas em Argila"/>
+<meta name="twitter:description" content="Ateliê de esculturas em argila de alto padrão, feitas inteiramente à mão."/>
+<meta name="twitter:image" content="https://argila-web.vercel.app/assets/logo-full.webp"/>
 <style>
   :root{
     --cream:#F5ECDD;
@@ -49,6 +60,14 @@
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} }
+
+  .skip-link{
+    position:absolute; left:1rem; top:-4rem; z-index:100;
+    background:var(--terracotta); color:#F8ECDD; padding:.75rem 1.3rem; border-radius:6px;
+    text-decoration:none; font-size:.85rem; letter-spacing:.03em;
+    transition:top .25s ease;
+  }
+  .skip-link:focus{top:1rem;}
 
   body{
     margin:0;
@@ -190,10 +209,19 @@
   }
   .hero .emblem-wrap{
     width:min(380px, 72vw); margin:0 auto 0;
-    filter:drop-shadow(0 22px 40px hsl(var(--shadow) / .3));
+    position:relative;
     animation:emblem-in 1.1s cubic-bezier(.2,.8,.2,1) both;
   }
-  .hero .emblem-wrap img{width:100%; height:auto; display:block;}
+  .hero .emblem-wrap::before{
+    content:""; position:absolute; inset:-16%; z-index:-1;
+    background:radial-gradient(circle, color-mix(in srgb, var(--terracotta) 32%, transparent), transparent 70%);
+    filter:blur(30px);
+  }
+  .hero .emblem-wrap img{
+    width:100%; height:auto; display:block; border-radius:22px;
+    border:1px solid color-mix(in srgb, var(--gold) 32%, transparent);
+    box-shadow:0 28px 54px -18px hsl(var(--shadow) / .45);
+  }
   @keyframes emblem-in{
     from{opacity:0; transform:translateY(14px) scale(.97);}
     to{opacity:1; transform:translateY(0) scale(1);}
@@ -251,8 +279,34 @@
   .story p + p{margin-top:1.1rem;}
   .story .col{color:var(--ink-soft);}
   .story .col strong{color:var(--ink); font-weight:600;}
+  .story p:first-of-type::first-letter{
+    font-family:'Iowan Old Style','Palatino Linotype',Georgia,serif;
+    font-size:3.2rem; line-height:.75; float:left;
+    padding:.15rem .5rem 0 0; color:var(--terracotta);
+  }
 
   .sobre{background:var(--cream-2); border-top:1px solid var(--sand); border-bottom:1px solid var(--sand);}
+
+  /* ---------- Nosso Processo: passos numerados ---------- */
+  .steps{
+    list-style:none; margin:0; padding:0; counter-reset:step;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:2.4rem;
+  }
+  .steps li{
+    counter-increment:step;
+    border-top:1px solid var(--sand); padding-top:1.4rem;
+    transition:transform .3s ease;
+  }
+  .steps li:hover{transform:translateY(-5px);}
+  .steps li::before{
+    content:counter(step, decimal-leading-zero);
+    display:block; margin-bottom:.8rem;
+    font-family:'Iowan Old Style','Palatino Linotype',Georgia,serif;
+    font-size:1.5rem; color:var(--terracotta);
+  }
+  .steps h3{font-size:1.05rem; font-weight:600; margin-bottom:.5rem;}
+  .steps p{color:var(--ink-soft); font-size:.95rem; margin:0;}
+  @media (max-width:800px){ .steps{grid-template-columns:1fr; gap:1.8rem;} }
 
   /* ---------- Nossa Essência: Missão / Visão / Valores ---------- */
   .triptych{
@@ -262,7 +316,9 @@
   .triptych > div{
     padding:3rem 2.4rem;
     border-left:1px solid var(--sand);
+    transition:background-color .35s ease;
   }
+  .triptych > div:hover{background:color-mix(in srgb, var(--sand) 20%, transparent);}
   .triptych > div:first-child{border-left:none;}
   .triptych h3{
     font-family:'Iowan Old Style','Palatino Linotype',Georgia,serif;
@@ -276,7 +332,8 @@
   }
 
   .valores-list{list-style:none; margin:2.4rem 0 0; padding:0; display:grid; gap:1.1rem;}
-  .valores-list li{display:flex; gap:.9rem; align-items:baseline;}
+  .valores-list li{display:flex; gap:.9rem; align-items:baseline; transition:transform .25s ease;}
+  .valores-list li:hover{transform:translateX(5px);}
   .valores-list .mark{color:var(--terracotta); font-family:'Iowan Old Style',Georgia,serif; font-size:1.05rem; flex:none;}
   .valores-list .txt strong{display:block; font-weight:600; color:var(--ink); margin-bottom:.15rem;}
   .valores-list .txt span{color:var(--ink-soft); font-size:.94rem;}
@@ -323,8 +380,8 @@
     overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
   }
   .logo-img{display:block; object-fit:contain;}
-  .logo-header{height:44px; width:auto; border-radius:4px;}
-  .logo-footer{height:56px; width:auto; border-radius:4px;}
+  .logo-header{height:44px; width:auto; border-radius:8px;}
+  .logo-footer{height:56px; width:auto; border-radius:10px;}
   .logo-hero{width:100%; height:auto; border-radius:8px;}
 
   @media (max-width:600px){
@@ -335,6 +392,7 @@
 </style>
 </head>
 <body>
+<a class="skip-link" href="#top">Pular para o conteúdo</a>
 <header>
   <div class="wrap nav-inner">
     <a class="brand-mini" href="#top" aria-label="Argila+ — início">
@@ -395,10 +453,20 @@
         <p class="eyebrow">Nosso Processo</p>
         <h2 class="font-display">O cuidado por trás de cada criação</h2>
       </div>
-      <div class="story col reveal">
-        <p>Da mistura do barro à secagem final, cada etapa é conduzida à mão, sem atalhos industriais. Trabalhamos por encomenda e em pequenas séries limitadas, priorizando sempre a integridade do material sobre a velocidade de produção.</p>
-        <p>Cada escultura passa pelas mãos de um único artesão do início ao fim, garantindo unidade de gesto e assinatura — um processo que não pode ser apressado nem replicado em escala.</p>
-      </div>
+      <ul class="steps reveal">
+        <li>
+          <h3>Preparação</h3>
+          <p>Da mistura do barro à modelagem inicial, cada etapa é conduzida à mão, sem atalhos industriais.</p>
+        </li>
+        <li>
+          <h3>Autoria</h3>
+          <p>Cada escultura passa pelas mãos de um único artesão do início ao fim, garantindo unidade de gesto e assinatura.</p>
+        </li>
+        <li>
+          <h3>Tempo</h3>
+          <p>Trabalhamos por encomenda e em pequenas séries limitadas — um processo que não pode ser apressado nem replicado em escala.</p>
+        </li>
+      </ul>
     </div>
   </section>
 

@@ -155,16 +155,20 @@
   .nav-toggle:focus-visible{outline:2px solid var(--terracotta); outline-offset:2px;}
 
   @media (max-width:920px){
-    .nav-toggle{display:block;}
+    /* toggle button + collapsed state only apply once html.js confirms the
+       click handler below is actually attached; otherwise the button would
+       be a dead hamburger and the links permanently unreachable */
+    :where(html.js) .nav-toggle{display:block;}
     nav.links{
       display:flex; flex-direction:column; align-items:flex-start; gap:0;
       position:absolute; top:100%; left:0; right:0;
       background:var(--cream); border-bottom:1px solid var(--sand);
-      max-height:0; overflow:hidden; padding:0 2rem;
+      overflow:hidden; padding:.5rem 2rem 1.6rem;
       transition:max-height .35s ease, padding .35s ease;
       box-shadow:0 16px 24px -18px rgb(0 0 0 / .25);
     }
-    nav.links.is-open{max-height:70vh; padding:.5rem 2rem 1.6rem;}
+    :where(html.js) nav.links{max-height:0; padding:0 2rem;}
+    :where(html.js) nav.links.is-open{max-height:70vh; padding:.5rem 2rem 1.6rem;}
     nav.links a{width:100%; padding:.85rem 0; border-bottom:1px solid var(--sand); font-size:.95rem;}
     nav.links a::after{display:none;}
   }
@@ -269,9 +273,13 @@
   @media (max-width:800px){ .section-head{grid-template-columns:1fr;} }
 
   .reveal{transition:opacity .8s ease, transform .8s ease;}
-  html.js .reveal{opacity:0; transform:translateY(18px);}
+  /* :where() keeps this selector's specificity at just ".reveal" (0,1,0) so
+     .reveal.in (0,2,0) below always wins once JS marks an item revealed —
+     a plain "html.js .reveal" would out-specify .reveal.in via the extra
+     element selector and permanently pin opacity:0 despite the .in class */
+  :where(html.js) .reveal{opacity:0; transform:translateY(18px);}
   .reveal.in{opacity:1; transform:translateY(0);}
-  @media (prefers-reduced-motion:reduce){ html.js .reveal{opacity:1; transform:none; transition:none;} }
+  @media (prefers-reduced-motion:reduce){ :where(html.js) .reveal{opacity:1; transform:none; transition:none;} }
 
   /* ---------- Coleção (Em breve) ---------- */
   .colecao{

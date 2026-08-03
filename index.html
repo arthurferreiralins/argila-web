@@ -210,7 +210,8 @@
   .hero .emblem-wrap{
     width:min(380px, 72vw); margin:0 auto 0;
     position:relative;
-    animation:emblem-in 1.1s cubic-bezier(.2,.8,.2,1) both;
+    animation:emblem-in 1.1s cubic-bezier(.2,.8,.2,1) both,
+              emblem-float 7s ease-in-out 1.1s infinite;
   }
   .hero .emblem-wrap::before{
     content:""; position:absolute; inset:-16%; z-index:-1;
@@ -226,6 +227,10 @@
     from{opacity:0; transform:translateY(14px) scale(.97);}
     to{opacity:1; transform:translateY(0) scale(1);}
   }
+  @keyframes emblem-float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-8px);}
+  }
   .hero-intro{
     max-width:46ch; margin:2.2rem auto 0; color:var(--ink-soft);
     font-size:1.05rem; animation:fade-up .9s .2s cubic-bezier(.2,.8,.2,1) both;
@@ -240,6 +245,18 @@
     background:linear-gradient(var(--sand), transparent);
     position:relative;
   }
+  .scroll-cue::after{
+    content:""; position:absolute; left:-1.5px; top:0; width:4px; height:4px;
+    border-radius:50%; background:var(--terracotta);
+    animation:scroll-dot 2.4s ease-in-out infinite;
+  }
+  @keyframes scroll-dot{
+    0%{transform:translateY(-4px); opacity:0;}
+    20%{opacity:1;}
+    80%{opacity:1;}
+    100%{transform:translateY(46px); opacity:0;}
+  }
+  @media (prefers-reduced-motion:reduce){ .scroll-cue::after{animation:none; opacity:0;} }
 
   /* ---------- Sections ---------- */
   section{padding:6.5rem 0;}
@@ -295,9 +312,11 @@
   .steps li{
     counter-increment:step;
     border-top:1px solid var(--sand); padding-top:1.4rem;
-    transition:transform .3s ease;
+    transition:opacity .8s ease, transform .35s ease;
   }
   .steps li:hover{transform:translateY(-5px);}
+  .steps li:nth-child(2){transition-delay:.12s;}
+  .steps li:nth-child(3){transition-delay:.24s;}
   .steps li::before{
     content:counter(step, decimal-leading-zero);
     display:block; margin-bottom:.8rem;
@@ -316,9 +335,10 @@
   .triptych > div{
     padding:3rem 2.4rem;
     border-left:1px solid var(--sand);
-    transition:background-color .35s ease;
+    transition:opacity .8s ease, transform .35s ease, background-color .35s ease;
   }
   .triptych > div:hover{background:color-mix(in srgb, var(--sand) 20%, transparent);}
+  .triptych > div:nth-child(2){transition-delay:.12s, .12s, 0s;}
   .triptych > div:first-child{border-left:none;}
   .triptych h3{
     font-family:'Iowan Old Style','Palatino Linotype',Georgia,serif;
@@ -332,8 +352,12 @@
   }
 
   .valores-list{list-style:none; margin:2.4rem 0 0; padding:0; display:grid; gap:1.1rem;}
-  .valores-list li{display:flex; gap:.9rem; align-items:baseline; transition:transform .25s ease;}
+  .valores-list li{display:flex; gap:.9rem; align-items:baseline; transition:opacity .7s ease, transform .3s ease;}
   .valores-list li:hover{transform:translateX(5px);}
+  .valores-list li:nth-child(2){transition-delay:.08s;}
+  .valores-list li:nth-child(3){transition-delay:.16s;}
+  .valores-list li:nth-child(4){transition-delay:.24s;}
+  .valores-list li:nth-child(5){transition-delay:.32s;}
   .valores-list .mark{color:var(--terracotta); font-family:'Iowan Old Style',Georgia,serif; font-size:1.05rem; flex:none;}
   .valores-list .txt strong{display:block; font-weight:600; color:var(--ink); margin-bottom:.15rem;}
   .valores-list .txt span{color:var(--ink-soft); font-size:.94rem;}
@@ -347,8 +371,10 @@
   .contato dt:first-child{margin-top:0;}
   .contato dd{margin:.3rem 0 0; font-size:1.02rem;}
   .tbd{
-    font-style:italic; color:var(--ink-soft); font-size:.92rem;
-    border:1px dashed var(--sand); border-radius:5px; padding:.2rem .7rem; display:inline-block;
+    display:inline-block; padding:.3rem 1rem;
+    border:1px solid var(--gold); border-radius:999px;
+    font-size:.72rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--gold-soft);
   }
   .contato-note{font-size:.85rem; color:var(--ink-soft); margin-top:1.6rem; max-width:40ch;}
 
@@ -453,16 +479,16 @@
         <p class="eyebrow">Nosso Processo</p>
         <h2 class="font-display">O cuidado por trás de cada criação</h2>
       </div>
-      <ul class="steps reveal">
-        <li>
+      <ul class="steps">
+        <li class="reveal">
           <h3>Preparação</h3>
           <p>Da mistura do barro à modelagem inicial, cada etapa é conduzida à mão, sem atalhos industriais.</p>
         </li>
-        <li>
+        <li class="reveal">
           <h3>Autoria</h3>
           <p>Cada escultura passa pelas mãos de um único artesão do início ao fim, garantindo unidade de gesto e assinatura.</p>
         </li>
-        <li>
+        <li class="reveal">
           <h3>Tempo</h3>
           <p>Trabalhamos por encomenda e em pequenas séries limitadas — um processo que não pode ser apressado nem replicado em escala.</p>
         </li>
@@ -479,38 +505,38 @@
       </div>
     </div>
     <div class="wrap" style="padding:0;">
-      <div class="triptych reveal">
-        <div>
+      <div class="triptych">
+        <div class="reveal">
           <h3>Missão</h3>
           <p>Elevar a escultura em argila feita à mão ao mesmo patamar de desejo e reconhecimento das grandes referências internacionais de design e decoração de luxo.</p>
         </div>
-        <div>
+        <div class="reveal">
           <h3>Visão</h3>
           <p>Ser reconhecida como uma galeria-ateliê de referência em escultura contemporânea em argila, presente em projetos de arquitetura e interiores ao redor do mundo.</p>
         </div>
       </div>
     </div>
     <div class="hairline" style="margin-top:3rem;"></div>
-    <div class="wrap reveal" style="padding-top:3rem; padding-bottom:4rem; max-width:56ch;">
-      <p class="eyebrow">Valores</p>
+    <div class="wrap" style="padding-top:3rem; padding-bottom:4rem; max-width:56ch;">
+      <p class="eyebrow reveal">Valores</p>
       <ul class="valores-list">
-        <li>
+        <li class="reveal">
           <span class="mark">+</span>
           <span class="txt"><strong>Autenticidade</strong><span>Nenhuma peça é reproduzida em série ou replicada digitalmente — cada gesto é único.</span></span>
         </li>
-        <li>
+        <li class="reveal">
           <span class="mark">+</span>
           <span class="txt"><strong>Excelência artesanal</strong><span>Técnica refinada ao longo de anos de prática, sem pressa para entregar.</span></span>
         </li>
-        <li>
+        <li class="reveal">
           <span class="mark">+</span>
           <span class="txt"><strong>Exclusividade</strong><span>Produção em pequenas séries e por encomenda, para quem valoriza o raro.</span></span>
         </li>
-        <li>
+        <li class="reveal">
           <span class="mark">+</span>
           <span class="txt"><strong>Respeito à matéria-prima</strong><span>A argila é tratada como protagonista, não como suporte — sua textura permanece visível.</span></span>
         </li>
-        <li>
+        <li class="reveal">
           <span class="mark">+</span>
           <span class="txt"><strong>Atemporalidade</strong><span>Formas pensadas para atravessar décadas, não tendências.</span></span>
         </li>
